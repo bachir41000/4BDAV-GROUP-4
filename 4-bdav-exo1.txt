@@ -21,7 +21,6 @@ CREATE TABLE COM(
  NumCli Number(5) Constraint COM_REF_CLI REFERENCES Cli ,
  FraisPort number(4),
  AnCom number(4),
-Page - 3 3
  Payement number(4));
 CREATE TABLE PRO(
  NumPro number(5) Constraint PK_PRO PRIMARY KEY,
@@ -43,6 +42,7 @@ Créer les tables qui sont référencées avant celles qui les référencent (FO
 5- Vider toutes vos tables. Y a-t-il un ordre à respecter ? Si oui, pourquoi ?
 
 Delete from DET; Delete from COM; Delete from CLI; Delete from PRO; Delete from FOU;
+
 
 
 
