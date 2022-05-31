@@ -1,0 +1,5 @@
+1. sqlplus system/oracle
+2. create user Majdouli identified by oracle;
+Grant create session to Majdouli; 
+3. exit
+sqlplus majdouli/oracle;
