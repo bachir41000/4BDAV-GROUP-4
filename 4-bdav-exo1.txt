@@ -42,7 +42,8 @@ Créer les tables qui sont référencées avant celles qui les référencent (FO
 
 5- Vider toutes vos tables. Y a-t-il un ordre à respecter ? Si oui, pourquoi ?
 
-TRUNCATE TABLE CLI 'pour supprimer toutes les donneés d'une tables sans la supprimer'
+Delete from DET; Delete from COM; Delete from CLI; Delete from PRO; Delete from FOU;
+
 
 
 
