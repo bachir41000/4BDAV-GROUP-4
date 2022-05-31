@@ -40,8 +40,9 @@ CREATE TABLE DET(
 
 Créer les tables qui sont référencées avant celles qui les référencent (FOU avant PRO)
 
+5- Vider toutes vos tables. Y a-t-il un ordre à respecter ? Si oui, pourquoi ?
 
-
+TRUNCATE TABLE CLI 'pour supprimer toutes les donneés d'une tables sans la supprimer'
 
 
 
