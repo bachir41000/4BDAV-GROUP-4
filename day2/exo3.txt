@@ -1,0 +1,23 @@
+1- Écrire un programme qui permet d'insérer le vol BA270 partant de Rome à 10h15 et arrivant
+à Paris à 12h15
+
+DECLARE
+
+v vol%ROWTYPE;
+
+BEGIN
+
+ v.idvol := 'BA270';
+ 
+ v.Date_heure_depart := to_date('01/06/2021 10:15', 'DD/MM/YYYY hh24:mi');
+ 
+ v.Date_heure_arrivee := to_date('01/06/2021 12:15', 'DD/MM/YYYY hh24:mi');
+ 
+ v.Ville_depart := 'Rome';
+ 
+ v.Ville_arrivee := 'Paris';
+ 
+ INSERT INTO vol VALUES v;
+
+
+END;
