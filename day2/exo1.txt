@@ -1,0 +1,73 @@
+1-compter le nombre total des enregistrements dans chaque table du schéma HR
+
+DECLARE
+    nbLignes NUMBER := 0;
+BEGIN
+ 
+    FOR C1 IN (
+        select *
+        from employee 
+    ) LOOP
+
+    EXECUTE IMMEDIATE 'SELECT COUNT() FROM ' || C1. INTO nbLignes;
+
+    DBMS_OUTPUT.PUT_LINE(C1.*  ': '  nbLignes);
+
+    END LOOP;
+END;
+
+2-compter le nombre d’employés dont la fonction (JOB) est MANAGER dans la table EMPLOYEE
+
+
+
+DECLARE
+    nbLignes NUMBER := 0;
+BEGIN
+ 
+    FOR C1 IN (
+        SELECT *
+    FROM employee 
+    WHERE job = 'MANAGER'
+    ) LOOP
+
+    EXECUTE IMMEDIATE 'SELECT COUNT() FROM ' || C1. INTO nbLignes;
+
+    DBMS_OUTPUT.PUT_LINE(C1.*  ': '  nbLignes);
+
+    END LOOP;
+END;
+
+3-calculer la proportion (en pourcentage) de managers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
