@@ -16,7 +16,7 @@ ENDAUGMENTE_SAL;
 
 2-créer une procédure qui permet de modifier le manager d'un département
 
-PROCEDURE AUGMENTE_SAL (managerid employee.manager_id%TYPE,
+PROCEDURE manager_update (managerid employee.manager_id%TYPE,
 deptid employee.departement_id%TYPE) IS
 BEGIN
  UPDATE employee
@@ -31,18 +31,30 @@ END IF
 ENDAUGMENTE_SAL;
 
 3-créer une fonction qui retourne le salaire moyen et médian d'un département
-CREATE OR REPLACE FUNCTION check_employee_salary
+ create  type array_t is varray(2) of number;
+
+CREATE OR REPLACE FUNCTION check_employee_salary_median
 (deptid IN NUMBER)
-RETURN NUMBER
+RETURN array_t 
 IS
 AVG_salary employee.salary%TYPE;
+median_salary employee.salary%TYPE;
+ v_array  array_t;
+
 BEGIN
-SELECT avg(salary)
-INTO AVG_salary 
+SELECT avg(salary), MEDIAN(salary)
+
+INTO AVG_salary ,median_salary
+
 FROM employee
+
 WHERE departement_id= deptid ;
 
-RETURN (AVG_salary );
+ v_array  :=array_t(0,0);   
+  v_array(1):=AVG_salary;
+  v_array(2):=median_salary;
+  
+RETURN v_array;
 END;
 
 
