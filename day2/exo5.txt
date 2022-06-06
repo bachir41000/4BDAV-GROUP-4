@@ -1,0 +1,63 @@
+1-créer une procédure qui permet d'augmenter le salaire d'un employé en renseignant un pourcentage d'augmentation
+
+PROCEDURE AUGMENTE_SAL (empid employee.employee_id%TYPE, Pourcentage
+ NUMBER) IS
+BEGIN
+ UPDATE employee
+ SET salary = salary + salary*pourcentage
+ WHERE employee_id=empid
+ AND empid NOT NULL;
+ IF SQL%NOTFOUNDTHEN
+ DBMS_OUTPUT.PUT_LINE (‘MAJ Non Effectuée’);
+ ELSE
+ DBMS_OUTPUT.PUT_LINE (‘MAJ Réussie’);
+END IF
+ENDAUGMENTE_SAL;
+
+2-créer une procédure qui permet de modifier le manager d'un département
+
+PROCEDURE AUGMENTE_SAL (managerid employee.manager_id%TYPE,
+deptid employee.departement_id%TYPE) IS
+BEGIN
+ UPDATE employee
+ SET mangers_id= managerid
+ WHERE departement_id= deptid;
+
+ IF SQL%NOTFOUNDTHEN
+ DBMS_OUTPUT.PUT_LINE (‘MAJ Non Effectuée’);
+ ELSE
+ DBMS_OUTPUT.PUT_LINE (‘MAJ Réussie’);
+END IF
+ENDAUGMENTE_SAL;
+
+3-créer une fonction qui retourne le salaire moyen et médian d'un département
+CREATE OR REPLACE FUNCTION check_employee_salary
+(deptid IN NUMBER)
+RETURN NUMBER
+IS
+AVG_salary employee.salary%TYPE;
+BEGIN
+SELECT avg(salary)
+INTO AVG_salary 
+FROM employee
+WHERE departement_id= deptid ;
+
+RETURN (AVG_salary );
+END;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
