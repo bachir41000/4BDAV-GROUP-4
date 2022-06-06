@@ -1,0 +1,22 @@
+1-créer un trigger qui empêche de baisser le salaire d'un employée
+
+
+create or replace trigger salaryrestriction
+    before update on employees for each row
+    
+begin
+    if :new.salary <> :old.salary then
+        raise_application_error(-20501, 'You cannot update SALARY ');
+    end if;
+end;
+
+
+2-
+CREATE OR REPLACE TRIGGER 
+BEFORE DELETE ON EMPLOYEE
+FOR EACH ROW
+
+BEGIN
+	if :old.employee_id = :old.manager_id then
+    dbms_output.put('vous allez supprimer un manager');
+END;
