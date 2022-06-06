@@ -12,3 +12,21 @@ begin
 end;
 
 
+
+CREATE OR REPLACE TRIGGER manager_delete
+  BEFORE DELETE ON dept
+  FOR EACH ROW
+
+  -- Before row is deleted from dept,
+  -- delete all rows from emp table whose DEPTNO is same as
+  -- DEPTNO being deleted from dept table:
+
+BEGIN
+ 
+        
+   
+  DELETE FROM employee
+  WHERE employee.manager_id = managerid;
+
+raise_application_error('vous allez supprimer le manager ');
+END;
