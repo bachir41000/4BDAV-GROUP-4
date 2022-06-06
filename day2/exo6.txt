@@ -17,6 +17,5 @@ BEFORE DELETE ON EMPLOYEE
 FOR EACH ROW
 
 BEGIN
-	if :old.employee_id = :old.manager_id then
-    dbms_output.put('vous allez supprimer un manager');
+	
 END;
