@@ -1,0 +1,175 @@
+1-Pour chaque document de type livre, émettre le document avec pour clé « title »
+
+var mapFunction = function () {
+  if (this.type == "Book")
+     emit(this.title, this);
+ };
+
+ var reduceFunction = function (key, values) {
+    return {articles : values};
+  };
+
+ var queryParam = {query:{}, out:"result_set"};
+
+2-Pour chacun de ces livres, donner le nombre de ses auteurs
+
+var mapFunction = function () {
+  if(this.type == "Book")
+    emit(this.title, this.authors.length);
+  };
+
+ var reduceFunction = function (key, values) {
+   return {articles : values};
+ };
+
+ var queryParam = {query:{}, out:"result_set"};
+
+
+3-Pour chaque livre publié par Springer et composé de chapitres (ayant
+l’attribut « booktitle »), donner le nombre des chapitres.
+
+var mapFunction = function () {
+   if(this.publisher=="Springer" && this.booktitle)
+         emit(this.booktitle, 1);
+       };
+
+var reduceFunction = function (key, values) {
+   return Array.sum(values);
+ };
+
+var queryParam = {query:{}, out:"result_set"};
+
+db.publis.mapReduce(mapFunction,
+   reduceFunction, queryParam);
+
+db.result_set.find({value:{$gte:2}});
+
+
+4-Pour l’éditeur « Springer », donner le nombre de publications par année
+
+var mapFunction = function () {
+   if(this.publisher == "Springer")emit(this.year, 1);
+ };
+
+var reduceFunction = function (key, values) {
+  return Array.sum(values);
+};
+
+
+5-Pour chaque couple « publisher & année » (il faut que publisher soit présent), donner le nombre de publications.
+
+var mapFunction = function () {
+  if(this.publisher)
+      emit({publisher:this.publisher, year:this.year}, 1);
+   };
+
+var reduceFunction = function (key, values) {
+    return Array.sum(values);
+ };
+
+6-Pour l’auteur « Toru Ishida », donner le nombre de publications par année
+
+ var mapFunction = function () {
+     if(Array.contains(this.authors, "Toru Ishida"))
+       emit(this.year, 1);
+    };
+
+   var reduceFunction = function (key, values) {
+      return Array.sum(values);
+   };
+
+   var queryParam = {query:{}, out:"result_set"};
+
+7-Pour l’auteur « Toru Ishida », donner le nombre moyen de pages pour ses articles (type Article)
+
+var mapFunction = function () {
+   emit(null, this.pages.end - this.pages.start);
+};
+
+var reduceFunction = function (key, values) {
+  return Array.avg(values);
+};
+
+var queryParam = {query:{authors:"Toru Ishida"}, out:"result_set"};
+
+
+8-Pour chaque auteur, lister les titres de ses publications
+
+var mapFunction = function () {
+ for(var i=0;i<this.authors.length;i++)
+   emit(this.authors[i], this.title);};
+
+var reduceFunction = function (key, values) {
+  return {titles : values};
+};
+
+9-Pour chaque auteur, lister le nombre de publications associé à chaque année
+
+var mapFunction = function () {
+  for(var i=0;i<this.authors.length;i++)
+     emit({author : this.authors[i], year : this.year}, 1);};
+
+var reduceFunction = function (key, values) {
+  return Array.sum(values);
+};
+
+10-Pour l’éditeur « Springer », donner le nombre d’auteurs par année
+
+var mapFunction = function () {
+  for(var i=0;i<this.authors.length;i++)
+    emit(this.year, this.authors[i]);};
+
+var reduceFunction = function (key, values) {
+  var distinct = 0;var authors = new Array();
+
+  for(var i=0;i<values.length;i++)
+    if(!Array.contains(authors, values[i]))
+    {
+         distinct++;
+         authors[authors.length] = values[i];
+     }
+
+  return distinct;};
+
+11-Compter les publications de plus de 3 auteurs
+
+ var mapFunction = function () {
+   if(this.authors.length >3)emit(null, 1);
+ };
+
+var reduceFunction = function (key, values) {
+  return Array.sum(values);
+};
+
+12-Pour chaque éditeur, donner le nombre moyen de pages par publication
+
+var mapFunction = function () {
+  if(this.pages && this.pages.end)
+    emit(this.publisher, this.pages.end - this.pages.start);
+  };
+
+ var reduceFunction = function (key, values) {
+   return Array.avg(values);
+ };
+
+var queryParam = {query:{}, out:"result_set"};
+
+13-Pour chaque auteur, donner le minimum et le maximum des années avec des publications,
+ ainsi que le nombre total de publications
+
+var mapFunction = function () {
+   for(var i=0;i<this.authors.length;i++)
+     emit(this.authors[i], {min : this.year,
+                            max : this.year, number : 1});};
+
+ var reduceFunction = function (key, values) {
+
+   var v_min = 1000000;var v_max = 0;var v_number = 0;
+
+   for(var i=0;i<values.length;i++){
+    if(values[i].min < v_min)v_min = values[i].min;
+    if(values[i].max > v_max)v_max = values[i].max;
+    v_number++;
+   }
+  return {min:v_min, max:v_max, number:v_number};
+};
