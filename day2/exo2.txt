@@ -1,0 +1,9 @@
+DECLARE
+
+BEGIN
+  FOR i IN ( SELECT object_name, object_type FROM user_objects )
+  LOOP
+     DBMS_OUTPUT.PUT_LINE('L''objet '|| i.object_name ||' est du type ' || i.object_type );
+  END LOOP;
+
+END;
