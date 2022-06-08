@@ -12,6 +12,8 @@ begin
 end;
 
 
+2-créer un trigger qui se déclenche lorsque l'on veut virer le manager d'un département.
+
 
 CREATE OR REPLACE TRIGGER manager_delete
   BEFORE DELETE ON dept
