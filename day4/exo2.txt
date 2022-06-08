@@ -1,3 +1,30 @@
+1-Architecture de Hadoop
+
+3 composants de base:
+- Le système de fichiers distribué
+- Le modèle de calculs
+- Le gestionnaire de ressources
+
+Architecture de Hive
+
+Hive est une infrastructure informatique similaire au Data Warehouse  qui fournit des services 
+de requêtes et d’agrégation de très gros volumes de données stockées sur un système de fichier 
+distribué de type HDFS.
+
+Architecture de Hbase
+
+HBase est un SGBD distribué, orienté-colonne qui fournit l’accès en temps réel aussi bien en 
+lecture qu’en écriture aux données stockées sur le HDFS. Là où le HDFS fournit un accès séquentiel 
+au données en batch, non-approprié pour des problématiques d’accès rapide à la donnée comme le 
+Streaming, HBase couvre ces lacunes et offre un accès rapide aux données stockées sur le HDFS.
+
+
+
+
+
+
+
+
 1-Pour chaque document de type livre, émettre le document avec pour clé « title »
 
 var mapFunction = function () {
