@@ -66,6 +66,7 @@ AND salary > (SELECT avg(salary) from employees);
 # Afficher les noms et les dates d’embauche de tous les employés qui ont été embauchés avant leur manager, 
 # ainsi que les noms et les dates d’embauche de ce manager
 
+
 SELECT 
     *
 FROM (
@@ -95,4 +96,4 @@ INNER JOIN
 ON employees.manager_id = manager.ID_EMPLOYEE_MANAGER
 AND employees.hire_date < manager.HIRE_DATE_MANAGER
 
-# -----------------------------------------------------------------------------------------------------------------
+
