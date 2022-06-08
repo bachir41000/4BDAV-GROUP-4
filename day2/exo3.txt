@@ -2,22 +2,18 @@
 à Paris à 12h15
 
 DECLARE
-
-v vol%ROWTYPE;
+    Num_Vol                 VARCHAR(255) := 'BA270';
+    Date_heure_depart  VARCHAR(255) := '10h15';
+    Date_heure_arrivee VARCHAR(255) := '12h15';
+    Ville_depart       VARCHAR(255) := 'Rome' ; 
+    Ville_arrivee      VARCHAR(255) := 'Paris';
 
 BEGIN
-
- v.idvol := 'BA270';
- 
- v.Date_heure_depart := to_date('01/06/2021 10:15', 'DD/MM/YYYY hh24:mi');
- 
- v.Date_heure_arrivee := to_date('01/06/2021 12:15', 'DD/MM/YYYY hh24:mi');
- 
- v.Ville_depart := 'Rome';
- 
- v.Ville_arrivee := 'Paris';
- 
- INSERT INTO vol VALUES v;
-
+    INSERT INTO VOL 
+        (IdVol, Date_heure_depart, Date_heure_arrivee, Ville_depart, Ville_arrivee)
+    VALUES 
+        (Num_Vol, Date_heure_depart, Date_heure_arrivee, Ville_depart, Ville_arrivee);
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE ('Le vol ' || Num_Vol || ' partant de '|| Ville_depart || ' à '  || date_heure_depart  || ' et arrivant à ' || Ville_arrivee ||' à ' || date_heure_arrivee ||' a été inséré');
 
 END;

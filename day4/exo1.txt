@@ -1,3 +1,36 @@
+from pymongo import MongoClient
+import urllib.parse
+import certifi
+
+username = urllib.parse.quote_plus('bachiretmounir')
+password = urllib.parse.quote_plus("")
+
+uri = "mongodb+srv://{}:{}@cluster0.leremoy.mongodb.net/?retryWrites=true&w=majority".format(username, password)
+client = MongoClient(uri,tlsCAFile=certifi.where())
+
+db_name = "videodb"
+collection_name = "video"
+
+db = client.videodb
+coll = db.video
+
+coll.drop()
+
+docs = [
+        {"_id": 1, "Titre": "Les misérables", "Réalisatieur": "Tom Hooper", "Temps d'execution": 158},
+        {"_id": 2, "Titre": "Skyfall ", "Réalisatieur": "Sam Mendes", "Temps d'execution": 137},
+        {"_id": 3, "Titre": "Les grands hommes", "Réalisatieur": " Raoul Walsh", "Temps d'execution": 158}
+    ]
+          
+result = coll.insert_many(docs)
+
+client.close()
+
+
+
+
+
+
 Interrogation simple
 
 1-Liste de tous les livres (type « Book ») 

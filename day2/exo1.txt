@@ -9,9 +9,15 @@ BEGIN
         from user_tables 
     ) LOOP
 
+<<<<<<< HEAD
+    EXECUTE IMMEDIATE 'SELECT count(*) FROM ' || i.table_name INTO nbLignes;
+
+    DBMS_OUTPUT.PUT_LINE( C1.table_name || ' : ' || nbLignes );
+=======
     EXECUTE IMMEDIATE 'SELECT count() FROM '  i.table_name INTO nbLignes;
 
     DBMS_OUTPUT.PUT_LINE( C1.table_name  ' : ' || nbLignes );
+>>>>>>> d09ea3ac003820a010a4481c884b1b64916ed310
 
     END LOOP;
 END;
@@ -23,6 +29,18 @@ DECLARE
     nbLignes INTEGER;
 BEGIN
  
+<<<<<<< HEAD
+    Select count(*) into total_manager
+    from employees inner join jobs
+    on employees.job_id = jobs.job_id
+    where jobs.job_title like '%Manager%';
+
+    DBMS_OUTPUT.PUT_LINE(' Nombre d employes dont la fonction JOB est MANAGER ': ' || nbLignes);
+
+END;
+
+En output on a 12 employées qui sont manager.
+=======
     Select count() into total_manager
     from employees inner join jobs
     on employees.job_id = jobs.job_id
@@ -52,8 +70,25 @@ END;
 
 Nous avons 13% de managers
 
+>>>>>>> d09ea3ac003820a010a4481c884b1b64916ed310
 
+3-calculer la proportion (en pourcentage) de managers
 
+DECLARE
+     pourcentage INTEGER;
+BEGIN
+    SELECT ROUND(total_manager / (SELECT COUNT(*) FROM EMPLOYEES),4) * 100 INTO pourcentage
+    FROM ( SELECT count(*) AS total_manager
+            FROM EMPLOYEES
+            INNER JOIN JOBS
+            ON employees.job_id = jobs.job_id
+            WHERE JOBS.JOB_TITLE like '%Manager%'
+        );
+    
+    DBMS_OUTPUT.PUT_LINE ('Pourcentage de manager : ' || pourcentage || ' %');
+END; 
+
+Nous avons 13% de managers
 
 
 

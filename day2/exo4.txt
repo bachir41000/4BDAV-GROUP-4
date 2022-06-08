@@ -1,55 +1,37 @@
 1-Écrire un programme permettant de calculer la moyenne des salaires des pilotes dont l’âge est entre 45 et 55 ans
 
 DECLARE
- CURSOR curseur1 IS SELECT salaire FROM pilote
- WHERE (Age >= 45 AND Age <=55);
- salairePilote Pilote.Salaire%TYPE;
- sommeSalaires NUMBER(11,2) := 0;
- moyenneSalaires NUMBER(11,2);
+    moyenne_sal pilote.salaire%type;
 BEGIN
- OPEN curseur1;
- LOOP
- FETCH curseur1 INTO salairePilote;
- EXIT WHEN (curseur1%NOTFOUND OR curseur1%NOTFOUND IS NULL);
- sommeSalaires := sommeSalaires + salairePilote;
- END LOOP;
- moyenneSalaires := sommeSalaires / curseur1%ROWCOUNT;
- CLOSE curseur1;
- DBMS_OUTPUT.PUT_LINE('Moyenne salaires (pilotes de 45 <E0> 55 ans) : ' ||
-moyenneSalaires);
+    SELECT AVG(salaire) INTO moyenne_sal
+    FROM pilote
+    WHERE age >= 45 and age <= 55;
+
+    DBMS_OUTPUT.PUT_LINE (moyenne_sal || '€');
+
 END;
 
 
 2-Écrire un programme permettant de calculer le salaire annuel d'un pilote
 DECLARE
- 
- salairePilote Pilote.Salaire%TYPE;
- matriculePilote  Pilote.Matricule%TYPE:= ID ;
- salaireAnnuel Pilote.Salaire%TYPE;
- nomPilote Pilote.Nom%TYPE
+
+CREATE OR REPLACE FUNCTION func_annuel_sal (p_matricule pilote.matricule%TYPE)
+RETURN NUMBER AS salaire_annuel pilote.salaire%TYPE;
 BEGIN
- select Nom,salaire
-
- into pilote into salirePilote,nomPilote
- from pilote 
- where matricule = matriculePilote;
-
-salaireAnnuel = salairePilote*12;
-
-
-DBMS_OUTPUT.PUT_LINE(' Nom : '||nomPilote||' salire annuel : '||salaireAnnuel);
-
-
-EXCEPTION
-WHEN NO_DATA_FOUND
-THEN DBMS_OUTPUT.PUT_LINE('Le pilote avec le numéro de matricule '||matriculePilote ||' n''existe pas dans la base de données.' );
+    SELECT salaire * 12 INTO salaire_annuel
+FROM pilote
+WHERE p_matricule = matricule;
+RETURN salaire_annuel;
 
 END;
 
 
-
-
-
+SELECT
+    matricule,
+    nom,
+    func_annuel_sal(matricule) salaire_ann
+FROM
+    pilote;
 
 
 
